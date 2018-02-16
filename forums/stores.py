@@ -33,13 +33,6 @@ class MemberStore:
 		else:
 			return False
 
-	# def update(self, member, member1):
-	# 	member = [member.id, member.name, member.age]
-	# 	member1 = [member1.id, member1.name, member1.age]
-	# 	if member in MemberStore.members:
-	# 		i = MemberStore.members.index(member)
-	# 		MemberStore.members.remove(member)
-	# 		MemberStore.members.insert(i, member1)
 
 	def delete(self, member):
 		member = [member.id, member.name, member.age]
