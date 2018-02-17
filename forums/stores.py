@@ -3,73 +3,81 @@ class MemberStore:
 
 	def get_all(self):
 		if len(MemberStore.members) > 0:
-			for member in MemberStore.members:
-				print(member)
-		else:
-			print("There aren't any member in store")
+			return MemberStore.members
 
 
 
 		
+	last_id = 1
 	def add(self, member):
 		if MemberStore().entity_exists(member):
 			print("this user is already exists")
 		else:
-			memberList = [member.id, member.name, member.age]
-			MemberStore.members.append(memberList)
+			member.id = MemberStore.last_id
+			MemberStore.members.append(member)
+			self.last_id += 1
+
+		
 	    
 
 	def get_by_id(self, id):
-		i = 0
-		while i < len(MemberStore.members):
-			if MemberStore.members[i][0] == id:
-				return MemberStore.members[i]
-			i +=1
+		allMembers = self.get_all()
+		for member in allMembers:
+			if member.id == id:
+				return member
+			else:
+				return
 	
 	def entity_exists(self, member):
-		member = [member.id, member.name, member.age]
-		if member in MemberStore.members:
+		if member in self.members:
 			return True
 		else:
 			return False
 
 
-	def delete(self, member):
-		member = [member.id, member.name, member.age]
-		if member in MemberStore.members:
-			MemberStore.members.remove(member)
-		else:
-			print("this member doesn't exist")
+	def delete(self, id):
+		member = MemberStore().get_by_id(id)
+		MemberStore.members.remove(member)
+
 
 
 
 
 class PostStore:
 	posts = []
+	last_id = 1
 
 	def get_all(self):
-		if len(PostStore.posts) > 0:
-			for post in PostStore.posts:
-				print(post)
+		if len(self.posts) > 0:
+			return self.posts
 
 
 	def add(self, post):
 		if PostStore().entity_exists(post):
 			print("this post is already exists")
 		else:
-			postlist = [post.title, post.body]
-			PostStore.posts.append(postlist)
+			post.id = PostStore.last_id
+			self.posts.append(post)
+			self.last_id += 1
 
-	def delete(self, post):
-		post = [post.title, post.body]
-		if post in PostStore.posts:
-			PostStore.posts.remove(post)
+	def get_by_id(self, id):
+		allPosts = self.get_all()
+		for post in allPosts:
+			if post.id == id:
+				return post
+			else:
+				return
+
+	def delete(self, id):
+		post = self.get_by_id(id)
+		if post in self.posts:
+			self.posts.remove(post)
 		else:
-			print("this post doesn't exist")
+			print("this posts doesn't exist")
 
 	def entity_exists(self, post):
 		post = [post.title, post.body]
-		if post in PostStore.posts:
+		if post in self.posts:
 			return True
 		else:
 			return False
