@@ -22,12 +22,10 @@ class MemberStore:
 		return result
 
 	def get_by_name(self, name):
-		allMembers = self.get_all()
 		result = None
-		for member in allMembers:
+		for member in self.members:
 			if member.name == name:
-				result = member
-				break
+				result += member
 		return result
 
 	def entity_exists(self, member):
@@ -45,7 +43,7 @@ class MemberStore:
 	def update(self, member):
 		result = member
 		all_members = self.get_all()
-		for index, current_member in all_members:
+		for index, current_member in enumerate(all_members):
 			if current_member.id == member.id:
 				all_members[index] = member
 		return result
@@ -89,7 +87,7 @@ class PostStore:
 	def update(self, post):
 		result = post
 		allPosts = self.get_all()
-		for index, current_post in allPosts:
+		for index, current_post in enumerate(allPosts):
 			if current_post.id == post.id:
 				allPosts[index] = post
 		return result

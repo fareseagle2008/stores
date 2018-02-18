@@ -56,6 +56,8 @@ store_should_add_model(member_instance, member_store)
 stores_similar()
 print_all_members(member_store)
 same_retrieved_objects(member_store, member3)
+print(member_store.get_by_name("Lama Kheir"))
 update_object(member_store, member2)
 deleteing()
+
 
