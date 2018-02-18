@@ -1,43 +1,54 @@
 class MemberStore:
 	members = []
+	last_id = 1
 
 	def get_all(self):
-		if len(MemberStore.members) > 0:
-			return MemberStore.members
+		return MemberStore.members
 
-
-
-		
-	last_id = 1
+	
 	def add(self, member):
-		if MemberStore().entity_exists(member):
-			print("this user is already exists")
-		else:
-			member.id = MemberStore.last_id
-			MemberStore.members.append(member)
-			self.last_id += 1
-
-		
-	    
+		member.id = MemberStore.last_id
+		MemberStore.members.append(member)
+		self.last_id += 1
+    
 
 	def get_by_id(self, id):
 		allMembers = self.get_all()
+		result = None
 		for member in allMembers:
 			if member.id == id:
-				return member
-			else:
-				return
-	
+				result = member
+				break
+		return result
+
+	def get_by_name(self, name):
+		allMembers = self.get_all()
+		result = None
+		for member in allMembers:
+			if member.name == name:
+				result = member
+				break
+		return result
+
 	def entity_exists(self, member):
-		if member in self.members:
-			return True
-		else:
-			return False
+		result = True
+		if self.get_by_id(member.id) is None:
+			result = False
+		return result
 
 
 	def delete(self, id):
 		member = MemberStore().get_by_id(id)
 		MemberStore.members.remove(member)
+
+
+	def update(self, member):
+		result = member
+		all_members = self.get_all()
+		for index, current_member in all_members:
+			if current_member.id == member.id:
+				all_members[index] = member
+		return result
 
 
 
@@ -48,39 +59,40 @@ class PostStore:
 	last_id = 1
 
 	def get_all(self):
-		if len(self.posts) > 0:
-			return self.posts
+		return self.posts
 
 
 	def add(self, post):
-		if PostStore().entity_exists(post):
-			print("this post is already exists")
-		else:
-			post.id = PostStore.last_id
-			self.posts.append(post)
-			self.last_id += 1
+		post.id = PostStore.last_id
+		self.posts.append(post)
+		self.last_id += 1
 
 	def get_by_id(self, id):
-		allPosts = self.get_all()
-		for post in allPosts:
+		allPost = self.get_all()
+		result = None
+		for post in allPost:
 			if post.id == id:
-				return post
-			else:
-				return
+				result = member
+				break
+		return result
 
 	def delete(self, id):
 		post = self.get_by_id(id)
-		if post in self.posts:
-			self.posts.remove(post)
-		else:
-			print("this posts doesn't exist")
+		self.posts.remove(member)
 
 	def entity_exists(self, post):
-		post = [post.title, post.body]
-		if post in self.posts:
-			return True
-		else:
-			return False
+		result = True
+		if self.get_by_id(post.id) is None:
+			result = False
+		return result
+
+	def update(self, post):
+		result = post
+		allPosts = self.get_all()
+		for index, current_post in allPosts:
+			if current_post.id == post.id:
+				allPosts[index] = post
+		return result
 		
 
 
