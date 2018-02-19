@@ -22,10 +22,10 @@ class MemberStore:
 		return result
 
 	def get_by_name(self, name):
-		result = None
+		result = []
 		for member in self.members:
 			if member.name == name:
-				result += member
+				result.append(member)
 		return result
 
 	def entity_exists(self, member):
