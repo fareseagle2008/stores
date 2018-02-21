@@ -1,3 +1,5 @@
+import itertools
+
 class MemberStore:
 	members = []
 	last_id = 1
@@ -22,11 +24,7 @@ class MemberStore:
 		return result
 
 	def get_by_name(self, name):
-		result = []
-		for member in self.members:
-			if member.name == name:
-				result.append(member)
-		return result
+		return (member for member in self.get_all() if member.name == name)
 
 	def entity_exists(self, member):
 		result = True
@@ -47,6 +45,16 @@ class MemberStore:
 			if current_member.id == member.id:
 				all_members[index] = member
 		return result
+
+	def get_member_with_post(self, all_posts):
+		all_members = self.get_all()
+		for member, post in itertools.product(all_members, all_posts):
+			member.posts.append(post)
+		return self.get_all()
+
+	def get_top_two(self, all_posts):
+		sorted_members = sorted(self.get_member_with_post(all_posts), key=lambda top: len(top.posts), reverse=True)
+		return sorted_members[:2]
 
 
 

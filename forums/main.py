@@ -48,6 +48,50 @@ def deleteing():
 	except ValueError:
 		print("It should be an existence entity before deleting !")
 
+def store_should_get_members_by_name(member_store):
+	print("*" * 40)
+	print("Getting by name:")
+	members_by_name_retrieved = member_store.get_by_name("Lama Kheir")
+	print(members_by_name_retrieved)
+
+def create_posts(member_instance):
+	post1 = models.Post("post1", "this is post1", member_instance[0].id)
+	post2 = models.Post("post2", "this is post2", member_instance[0].id)
+	post3 = models.Post("post3", "this is post3", member_instance[1].id)
+	post4 = models.Post("post4", "this is post4", member_instance[1].id)
+	post5 = models.Post("post5", "this is post5", member_instance[1].id)
+	post6 = models.Post("post6", "this is post6", member_instance[2].id)
+	post7 = models.Post("post7", "this is post7", member_instance[2].id)
+	post8 = models.Post("post8", "this is post8", member_instance[2].id)
+	post9 = models.Post("post9", "this is post9", member_instance[2].id)
+
+	print(post1)
+	print(post2)
+	print(post3)
+	print("=" * 40)
+
+	return post1, post2, post3, post4, post5, post6, post7, post8, post9
+
+def store_should_add_post(post_instance, post_store):
+	for post in post_instance:
+		post_store.add(post)
+
+def store_should_get_members_with_posts(member_store, post_store):
+	members_with_posts = member_store.get_member_with_post(post_store.get_all())
+	for member_with_posts in members_with_posts:
+		print(f"{member_with_posts} has posts:")
+		for post in member_with_posts.posts:
+			print(f"\t{post}")
+		print("=" * 10)
+
+def store_should_get_top_two(member_store, post_store):
+	top_two_members = member_store.get_top_two(post_store.get_all())
+	for member_with_posts in top_two_members:
+		print(f"{member_with_posts} has posts:")
+		for post in member_with_posts.posts:
+			print(f"\t{post}")
+
+
 
 member_instance = create_members()
 member1, member2, member3 = member_instance
@@ -56,8 +100,15 @@ store_should_add_model(member_instance, member_store)
 stores_similar()
 print_all_members(member_store)
 same_retrieved_objects(member_store, member2)
-print(member_store.get_by_name("Lama Kheir"))
 update_object(member_store, member2)
 deleteing()
+store_should_get_members_by_name(member_store)
+post_instance = create_posts(member_instance)
+post1, post2, post3, post4, post5, post6, post7, post8, post9 = post_instance
+post_store = stores.PostStore()
+store_should_add_post(post_instance, post_store)
+store_should_get_members_with_posts(member_store, post_store)
+store_should_get_top_two(member_store, post_store)
+
 
 
