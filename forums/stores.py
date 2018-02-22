@@ -49,11 +49,14 @@ class MemberStore:
 	def get_member_with_post(self, all_posts):
 		all_members = self.get_all()
 		for member, post in itertools.product(all_members, all_posts):
-			member.posts.append(post)
-		return self.get_all()
+			if member.id == post.member_id:
+				member.posts.append(post)
+		for member in all_members:
+			yield member
 
 	def get_top_two(self, all_posts):
-		sorted_members = sorted(self.get_member_with_post(all_posts), key=lambda top: len(top.posts), reverse=True)
+		all_members = self.get_member_with_post(all_posts)
+		sorted_members = sorted(all_members, key=lambda top: len(top.posts), reverse=True)
 		return sorted_members[:2]
 
 
