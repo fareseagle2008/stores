@@ -1,5 +1,6 @@
 import models
 import stores
+import datetime
 
 def create_members():
 	member1 = models.Member("Fares AbuAmin", 31)
@@ -91,6 +92,12 @@ def store_should_get_top_two(member_store, post_store):
 		for post in member_with_posts.posts:
 			print(f"\t{post}")
 
+def store_should_get_posts_by_date(post_store):
+	print("=" * 30 + "posts by date" + "=" * 30)
+	all_posts = post_store.get_posts_by_date()
+	for post in all_posts:
+		print(f"\t{post}")
+
 
 
 member_instance = create_members()
@@ -109,6 +116,6 @@ post_store = stores.PostStore()
 store_should_add_post(post_instance, post_store)
 store_should_get_members_with_posts(member_store, post_store)
 store_should_get_top_two(member_store, post_store)
-
+store_should_get_posts_by_date(post_store)
 
 
