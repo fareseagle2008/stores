@@ -1,5 +1,5 @@
 body{
-	background-color: #f1f1f1;
+	background-color: #ffffff;
 }
 
 h1{
@@ -15,4 +15,12 @@ h1{
 .btnn{
 	width: 150px;
 	background: forestgreen;
+}
+#editor{
+	background-color: #ffffff
+}
+.divv{
+	align-items: center;
+	border: 1px solid;
+	padding: 20px
 }
